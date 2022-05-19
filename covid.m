@@ -1,4 +1,5 @@
 % Copyright 2021 Bjorn Birnir
+%
 clear all
 figure(1), clf
 figure(2), clf
@@ -18,16 +19,17 @@ kj=3.19/60;% This is the ACH=3.20 in the office. It assumes
 % Exhalation rate per minute E=1.584 m^2/min.
 V=27.67;% Volume of the room in meters cubed.
 C(1)=1.584/(V);
-p(1)=0.6*(1-exp(-C(1))); %We are assuming that most people are
+k=k5+kj;
+p(1)=0.6*(1-exp(-C(1)/k)); %We are assuming that most people are
 % vaccinated 0.3 but the strain is virulent (omicron) x 2 =0.6.
 %pb(1)=320*p(1)*(1-p(1))^(319);
 %pb(1)=(factorial(4)/(factorial(2)*factorial(2)))*p(1)^2*(1-p(1))^2;% 4 people and 2 get infected
 pb(1)=(factorial(3)/(factorial(2)*factorial(1)))*p(1)^1*(1-p(1))^2;
 k=k5+kj;
-%C(1)=C(1)/k
-for j=2:1:120
+D=C(1)/k;
+for j=2:1:250
 C(j)=(C(1)/k)*(1-exp(-k*j));
-p(j)=0.6*(1-exp(-C(j)/k+C(1)*j));
+p(j)=0.6*(1-exp(C(j)/k-(C(1)/k)*j));
 %pb(j)=(factorial(4)/(factorial(2)*factorial(2)))*p(j)^2*(1-p(j))^2;
 pb(j)=(factorial(3)/(factorial(2)*factorial(1)))*p(j)^1*(1-p(j))^2; %This is the probability that 2 people come into
 %office and one gets infected (so there are 3 people there)
@@ -45,3 +47,4 @@ ylabel('Probability of Infection','FontSize',15), xlabel('time (minutes)','FontS
 figure(3), clf
 plot(pb,'LineWidth',2);hold on
 ylabel('Binomial probability of infection','FontSize',15), xlabel('time (minutes)','FontSize',15)
+%p(t)=1-exp(-\int_0^t C(t)dt)
