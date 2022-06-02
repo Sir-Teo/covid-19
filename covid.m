@@ -16,10 +16,10 @@ k2=0.025; %1.5 ACH
 k3=0.1; %6ACH this is with the standard 6ACH
 kj=3.19/60;% This is the ACH=3.20 in the office. It assumes
 % that a vindow is open.
-% Exhalation rate per minute E=1.584 m^2/min.
+% Exhalation rate per minute E=1.584 m^3/min.
 V=27.67;% Volume of the room in meters cubed.
 C(1)=1.584/(V);
-k=k5+kj;
+k=k5+kj;w
 p(1)=0.6*(1-exp(-C(1)/k)); %We are assuming that most people are
 % vaccinated 0.3 but the strain is virulent (omicron) x 2 =0.6.
 %pb(1)=320*p(1)*(1-p(1))^(319);
