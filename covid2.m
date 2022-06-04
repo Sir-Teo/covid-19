@@ -5,9 +5,9 @@ clear all;
 k5=0.0078;   %35 RH
 
 % kj is the ACH in different scenarios. ACH is 3.19 in the office, 0 in the
-% Guangzhou Restaurant, 6 in the bus of buddhists, and 6 in the room1 of 
+% Guangzhou Restaurant, 3 in the bus of buddhists, and 6 in the room1 of 
 % korean call center
-kj=[3.19/60,0/60,6/60,6/60];
+kj=[3.19/60,0/60,3/60,6/60];
 
 % the volume of different scenarios, in the order of the office, the
 % restaurant, the bus, and room 1 of the call center. the unit is in m^3
@@ -30,8 +30,8 @@ for i = 1:4
   
     pb(1)=(factorial(3)/(factorial(2)*factorial(1)))*p(1)^1*(1-p(1))^2;
 
-    % simulate the scenarios for 7 hours
-    for j=2:1:420
+    % simulate the scenarios for 1000 minutes
+    for j=2:1:640
 
     % average droplet concentration
     C(j)=(C(1)/k)*(1-exp(-k*j));
@@ -61,3 +61,7 @@ for i = 1:3
     subplot(1,3,i)
     legend('Office','Restaurant','Bus','Call center');
 end
+
+
+% In the Guangzhou Restaurant, 11/21 got infected in the interval of 73
+% minutes. For the bus, 24/68 got infected in the interval of 100 minutes
